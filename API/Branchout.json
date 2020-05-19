@@ -1,0 +1,65 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: 'Branchout API'
+  description: 'API for the Branchout App'
+# Added by API Auto Mocking Plugin
+schemes:
+ - https
+# host: branchout.space
+# basePath: /user
+
+paths:
+ /register:
+  post:
+    description: user registration
+    responses:
+      200: #200 is a sucssfull attempt
+        description: successfully registered a new user
+        schema:
+          type: array
+          items: 
+            type: object
+            properties:
+              user_id:
+                type: integer
+              user_name:
+                type: string
+              user_lastname:
+                type: string
+              user_number:
+                type: integer
+      400: #400 is unsuccessful
+        description: Error
+        schema:
+          type: object
+          properties:
+             message:
+              type: string
+ /login:
+  get:
+    description: logged in a user
+    responses:
+      200:
+        description: successfull login
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              user_name:
+                type: string
+              user_passowd:
+                type: string
+      400:
+        description: Error login failed
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com #page url
+# basePath: /BranchOutGroup/login/1.0
+# Added by API Auto Mocking Plugin
+basePath: /BranchOutGroup/Branchout/1.0 #path in database

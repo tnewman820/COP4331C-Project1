@@ -42,6 +42,56 @@ function doLogin()
 
 		saveCookie();
 	
+		window.location.href = "http://branchout.space/success.html";
+	}
+	catch(err)
+	{
+		document.getElementById("loginResult").innerHTML = err.message;
+	}
+
+}
+
+function doRegister()
+{
+	userId = 0;
+	fistname = "";
+	lastName = "";
+	
+	var login = document.getElementById("loginName").value;
+	var password = document.getElementById("loginPassword").value;
+	var fname = document.getElementById("firstName").value;
+	var lname = document.getElementById("lastName").value;
+	var email = document.getElementById("emailAddress").value;
+	var phonenum = document.getElementById("phoneNumber").value;
+//	var hash = md5( password );
+	
+	document.getElementById("loginResult").innerHTML = "";
+
+//	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '", "firstname" : "' + fname + ', "lastname" : "' + lname + ', "email" : "' + email + ', "phone" : "' + phonenum + '}';
+	var url = urlBase + '/RegUser.' + extension;
+
+	var request = new XMLHttpRequest();
+	request.open("POST", url, false);
+	requst.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		request.send(jsonPayload);
+		
+		var jsonObject = JSON.parse( request.responseText );
+		
+		userId = jsonObject.id;
+		
+		if( userId < 1 )
+		{
+			document.getElementById("loginResult").innerHTML = "User/Password combination invalid";
+			return;
+		}
+		
+		fistname = jsonObject.fistname;
+
+		saveCookie();
+	
 		window.location.href = "contacts.html";
 	}
 	catch(err)

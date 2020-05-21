@@ -5,7 +5,7 @@
 	$userId = $inData["password"];
 	$userId = $inData["phonenumber"];
 
-	$conn = new mysqli("localhost", "user", "password", "database");
+	$conn = new mysqli("localhost", "tnewman820", "Password00115!", "tnewman8_COP4331");
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );

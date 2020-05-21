@@ -1,9 +1,12 @@
 <?php
 	$inData = getRequestInfo();
 	
-	$userId = $inData["username"];
-	$userId = $inData["password"];
-	$userId = $inData["phonenumber"];
+	$firstname = $inData["firstname"];
+	$lastname = $inData["lastname"];
+	$login = $inData["login"];
+	$password = $inData["password"];
+	$email = $inData["email"];
+	$phone = $inData["phone"];
 
 	$conn = new mysqli("localhost", "tnewman820", "Password00115!", "tnewman8_COP4331");
 	if ($conn->connect_error) 
@@ -12,7 +15,7 @@
 	} 
 	else
 	{
-		$sql = "insert into Database (Users) VALUES (" . $userId . ",'" . $username . "','" . $password . "', '" . $phonenumber . "')";
+		$sql = "INSERT INTO `Users`(`FirstName`, `LastName`, `Login`, `Password`, `Email`, `Phone`) VALUES ('" . $firstname . "' , '" . $lastname . "' , '" . $login . "', '" . $password . ", '" . $email . "', '" . $phone . "')"
 		if( $result = $conn->query($sql) != TRUE )
 		{
 			returnWithError( $conn->error );
@@ -20,7 +23,7 @@
 		$conn->close();
 	}
 	
-	returnWithError("");
+	returnWithError("Unable to Register user");
 	
 	function getRequestInfo()
 	{

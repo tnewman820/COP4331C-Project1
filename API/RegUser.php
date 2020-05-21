@@ -12,7 +12,7 @@
 	} 
 	else
 	{
-		$sql = "insert into Database (Users) VALUES (" . $username",'" . $password . "', ". $phonenumber")";
+		$sql = "insert into Database (Users) VALUES (" . $userId . ",'" . $username . "','" . $password . "', '" . $phonenumber . "')";
 		if( $result = $conn->query($sql) != TRUE )
 		{
 			returnWithError( $conn->error );

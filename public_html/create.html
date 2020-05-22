@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
 	<script type="text/javascript" src="js/jscode.js"></script>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function() 
@@ -11,7 +10,6 @@
 		readCookie();
 	}, false);
 	</script>
-	
     <title>Branch · Out</title>
 
     <!-- Bootstrap core CSS -->
@@ -42,46 +40,34 @@
       <a class="brand" href="/" style='width: 112px;'>
 		  <img src='../img/logo112.png'></a>
       <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" type="button" id="logoutButton" onClick="doLogout();">Logout</a>
+        <!--<a class="nav-link active" href="/login">Login</a>-->
       </nav>
     </div>
   </header>
 
   <main role="main" class="inner cover">
+    <body class="text-center">
+    <form class="form-signin">
+  <!--<img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
   <img src='../img/branches.png' width="200" height="200">
-    <p class="lead">Welcome <span id="userName"></span><br /></p>
-	<p class="lead"><i>What would you like to do today?</i></p>
-	
-	<div class="row mb-3">
-    <div class="col-6 themed-grid-col">
-	<a href="/create"><button type="button" id="" class="btn btn-lg btn-secondary" >Create</button></a>
-	</div>
-    <div class="col-6 themed-grid-col">
-	<a href="/search"><button type="button" id="" href="/search" class="btn btn-lg btn-secondary" >Search</button></a>
-	</div>
-  </div>
-	
-	<!--<div class="container themed-container">
-    <div class="row mb-3">
-    <div class="col-md-8 themed-grid-col">
-	<h2>Add a new contact</h2>
-	</div>
-    
-	<div class="col-md-4 themed-grid-col">
-	<button type="button" id="" onclick="" class="btn btn-lg btn-secondary" >Create</button>
-	</div>
-	</div>
-	<div class="row mb-3">
-    <div class="col-md-8 themed-grid-col">
-	<label for="search" class="sr-only">Search Bar</label>
-  <input type="text" id="contSearch" class="form-control" placeholder="Search for an existing contact">
-	</div>
-    
-	<div class="col-md-4 themed-grid-col">
-	<button type="button" id="" onclick="" class="btn btn-lg btn-secondary" >Search</button>
-	</div>
-	</div>
-	</div>-->
+  <h1 class="h3 mb-3 font-weight-normal">Contact Information:</h1>
+  <label for="firstName" class="sr-only">First Name</label>
+  <input type="user" id="firstName" class="form-control" placeholder="Joe" required autofocus>
+  <body><h1>   </h1></body>
+  <label for="lastName" class="sr-only">Last Name</label>
+  <input type="user" id="lastName" class="form-control" placeholder="Smith" required autofocus>
+  <body><h1>   </h1></body>
+  <label for="email" class="sr-only">Email</label>
+  <input type="user" id="emailAddress" class="form-control" placeholder="JoeSmith@MyEmail.com" required autofocus>
+  <body><h1>   </h1></body>
+  <label for="phoneNumber" class="sr-only">Phone Number</label>
+  <input type="user" id="phoneNumber" class="form-control" placeholder="123-456-7890" required autofocus>
+  <body><h1>   </h1></body>
+  <button type="button" id="createButton" onclick="doCreateContact();" class="btn btn-lg btn-secondary" >Create</button>
+  <span id="createResult"></span>
+  <p>Click <a href="/user">here</a> to return to your userpage</p>
+</form>
+</body>
   </main>
 
   <footer class="mastfoot mt-auto">

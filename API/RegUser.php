@@ -15,7 +15,7 @@
 	} 
 	else
 	{
-		$sql = "INSERT INTO `Users`(`FirstName`, `LastName`, `Login`, `Password`, `Email`, `Phone`) VALUES ('" . $firstname . "' , '" . $lastname . "' , '" . $login . "', '" . $password . ", '" . $email . "', '" . $phone . "')"
+		$sql = "INSERT INTO `Users`(`FirstName`, `LastName`, `Login`, `Password`, `Email`, `Phone`) VALUES ('" . $firstname . "' , '" . $lastname . "' , '" . $login . "', '" . $password . ", '" . $email . "', '" . $phone . "')";
 		if( $result = $conn->query($sql) != TRUE )
 		{
 			returnWithError( $conn->error );
@@ -23,7 +23,7 @@
 		$conn->close();
 	}
 	
-	returnWithError("Unable to Register user");
+	returnWithError("");
 	
 	function getRequestInfo()
 	{

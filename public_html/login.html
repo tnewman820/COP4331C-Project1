@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	<script type="text/javascript" src="js/jscode.js"></script>
     <title>Branch · Out</title>
 
     <!-- Bootstrap core CSS -->
@@ -34,19 +34,32 @@
       <a class="brand" href="/" style='width: 112px;'>
 		  <img src='../img/logo112.png'></a>
       <nav class="nav nav-masthead justify-content-center">
-        <!--<a class="nav-link active" href="/login.html">Login</a>-->
+        <!--<a class="nav-link active" href="/login">Login</a>-->
       </nav>
     </div>
   </header>
 
   <main role="main" class="inner cover">
-	<img src='../img/branches.png' width="200" height="200">
-    <h1 class="cover-heading">Welcome</h1> 
-    <p class="lead">Simply click the button below to</p>
-    <p class="lead">
-      <a href="/register" class="btn btn-lg btn-secondary">Get Started</a>
-	  <p>Already have an account? <a href="/login">Login</a></p>
-    </p>
+    <body class="text-center">
+    <form class="form-signin">
+  <!--<img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
+  <img src='../img/branches.png' width="200" height="200">
+  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+  
+  <!--<label for="loginName" class="sr-only">Username</label>-->
+  <input type="text" id="loginName" class="form-control" placeholder="Username" required autofocus>
+  
+  <body><h1>   </h1></body>
+  
+  <!--<label for="loginPassword" class="sr-only">Password</label>-->
+  <input type="password" id="loginPassword" class="form-control" placeholder="Password" required>
+  
+  <body><h1>   </h1></body>
+  
+  <button type="button" id="loginButton" onclick="doLogin();" class="btn btn-lg btn-secondary" >Sign in</button>
+</form>
+<span id="loginResult"></span>
+</body>
   </main>
 
   <footer class="mastfoot mt-auto">

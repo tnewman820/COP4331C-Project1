@@ -20,10 +20,13 @@
 		{
 			returnWithError( $conn->error );
 		}
+		else
+		{
+			returnWithSuccess( $firstname, $lastname);
+		}
 		$conn->close();
 	}
-	
-	returnWithError("");
+	returnWithError( $err );
 	
 	function getRequestInfo()
 	{
@@ -42,4 +45,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
+	function returnWithSuccess( $firstName, $lastName )
+	{
+		$retValue = '{"firstName":"' . $firstName . '","lastName":"' . $lastName . '","has been registered"}';
+		sendResultInfoAsJson( $retValue );
+	}
 ?>

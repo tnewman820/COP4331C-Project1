@@ -13,7 +13,7 @@
 	} 
 	else
 	{
-		$sql = "INSERT INTO `Contacts`( `UserId`, `FirstName`, `LastName`, `Email`, `Phone`) VALUES (" . $UserId . ", '" . $firstname . "' , '" . $lastname . "' , '" . $email . "', '" . $phone . "')";
+		$sql = "INSERT INTO `Contacts`( `UserId`, `FirstName`, `LastName`, `Email`, `Phone`) VALUES ('" . $UserId . "', '" . $firstname . "' , '" . $lastname . "' , '" . $email . "', '" . $phone . "')";
 		if( $result = $conn->query($sql) != TRUE )
 		{
 			returnWithError( $conn->error );
@@ -45,7 +45,7 @@
 	
 	function returnWithSuccess( $firstName, $lastName )
 	{
-		$retValue = '{"firstName":"' . $firstName . '","lastName":"' . $lastName . '","has been registered"}';
+		$retValue = '{"firstName":"' . $firstName . '","lastName":"' . $lastName . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>

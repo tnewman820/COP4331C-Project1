@@ -51,21 +51,27 @@
   <!--<img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
   <img src='../img/branches.png' width="200" height="200">
   <h1 class="h3 mb-3 font-weight-normal">Contact Information:</h1>
-  <label for="firstName" class="sr-only">First Name</label>
-  <input type="user" id="firstName" class="form-control" placeholder="Joe" required autofocus>
+    <label for="cfirstName" class="sr-only">First Name</label>
+  <input type="text" id="cfirstName" class="form-control" placeholder="Joe" required autofocus>
   <body><h1>   </h1></body>
-  <label for="lastName" class="sr-only">Last Name</label>
-  <input type="user" id="lastName" class="form-control" placeholder="Smith" required autofocus>
+  <label for="clastName" class="sr-only">Last Name</label>
+  <input type="text" id="clastName" class="form-control" placeholder="Smith" required autofocus>
   <body><h1>   </h1></body>
-  <label for="email" class="sr-only">Email</label>
-  <input type="user" id="emailAddress" class="form-control" placeholder="JoeSmith@MyEmail.com" required autofocus>
+  <label for="cemail" class="sr-only">Email</label>
+  <input type="email" id="cemailAddress" class="form-control" placeholder="JoeSmith@MyEmail.com">
   <body><h1>   </h1></body>
-  <label for="phoneNumber" class="sr-only">Phone Number</label>
-  <input type="user" id="phoneNumber" class="form-control" placeholder="123-456-7890" required autofocus>
+  <label for="cphoneNumber" class="sr-only">Phone Number</label>
+  <input type="tel" id="cphoneNumber" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890">
   <body><h1>   </h1></body>
-  <button type="button" id="createButton" onclick="doCreateContact();" class="btn btn-lg btn-secondary" >Create</button>
+  <button type="button" id="" onclick="doCreateContact();" class="btn btn-lg btn-secondary" >Create</button>
+  <body><h1>   </h1></body>
   <span id="createResult"></span>
-  <p>Click <a href="/user">here</a> to return to your userpage</p>
+  
+  <body><h1>   </h1></body>
+  <body><h1>   </h1></body>
+  <p>Click <a href="/user"><u>here</u></a> to return to your userpage</p>
+  <body><h1>   </h1></body>
+  <p>Currently logged in as <span id="userName"></span><br /></p>
 </form>
 </body>
   </main>

@@ -96,6 +96,10 @@ body {
   padding: .75rem 1.25rem;
   font-weight: 700;
 }
+.cover .btn-med {
+  padding: 0 1.5rem;
+  font-weight: 700;
+}
 
 
 /*
@@ -158,3 +162,5 @@ body {
   border: 1px solid rgba(0, 123, 255, .2);
   */
 }
+
+ 

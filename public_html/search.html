@@ -10,6 +10,7 @@
 	{
 		readCookie();
 	}, false);
+	<!--document.getElementById("searchResultsDiv").style.display = "none";-->
 	</script>
 	
     <title>Branch · Out</title>
@@ -58,61 +59,21 @@
    </span>
 </div>
 	
-	<div id="searchResultsDiv"class="row mb-3">
-    <table id="contactList">
+	<div id="searchResultsDiv" class="row mb-3">		  
+		<table id="contactList">
 		  <tr>
 		    <th>Name</th>
 		    <th>Phone Number</th>
 		    <th>Email</th>
-		  </tr>
-		  <tr>
-		    <td></td>
-		    <td></td>
-		    <td></td>
-		  </tr>
-		  <tr>
-		    <td></td>
-		    <td></td>
-		    <td></td>
-		  </tr>
-		  <tr>
-		    <td></td>
-		    <td></td>
-		    <td></td>
-		  </tr>
-		  <tr>
-		    <td></td>
-		    <td></td>
-		    <td></td>
-		  </tr>
-		    <tr>
-		    <td></td>
-		    <td></td>
-		    <td></td>
-		  </tr>
-		  <tr>
-		    <td></td>
-		    <td></td>
-		    <td></td>
-		  </tr>
-		  <tr>
-		    <td></td>
-		    <td></td>
-		    <td></td>
-		  </tr>
-		
+		  </tr>		
 		</table>
-				<br><br>
-				<button type="button" id="AddNewContactButton" class="buttons" onClick="addPage()"> Add New Contact </button>
-
-				<button type="button" id="editContactButton" class="buttons" onClick="doEditContactPage()"> Edit Contact </button>
-
-				<button type="button" id="UserSettingsButton" class="buttons" onClick="userSettings()"> Account Settings </button>
-				<br><br>
-				<button type="button" id="DeleteContactButton"class="buttons" onClick="doDeleteContact();"> Delete Contact </button>
-				<br><br>
-
-  </div>
+		<span id="contactSearchResult"></span>
+    </div>
+	<body><h1>   </h1></body>
+  <body><h1>   </h1></body>
+  <!--<p>Click <a href="/user"><u>here</u></a> to return to your userpage</p>
+  <body><h1>   </h1></body>-->
+  <p>Currently logged in as <a href="/user"><span id="userName"></span><br /></a></p>
 	
   </main>
 

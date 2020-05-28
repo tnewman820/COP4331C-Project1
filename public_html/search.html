@@ -9,6 +9,7 @@
 	document.addEventListener('DOMContentLoaded', function() 
 	{
 		readCookie();
+		searchContact();
 	}, false);
 	<!--document.getElementById("searchResultsDiv").style.display = "none";-->
 	</script>
@@ -55,11 +56,24 @@
 <div class="input-group">
    <input type="text" id="searchText" class="form-control" placeholder="Search Text" required autofocus>
    <span class="input-group-btn">
-        <a href="/search"><button type="button" id="" href="/search" class="btn btn-secondary" ><b>Search</b></button></a>
+        <button type="button" id="" onClick="searchContact()" class="btn btn-secondary" ><b>Search</b></button>
    </span>
 </div>
+<div id="searchResultDiv">
+<span id="contactSearchResult"></span>
+<!--<p id="contactSearchResults"></p>-->
+<!--<table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>Phone Number</th>
+    <th>Email Address</th>
+	<th>Delete</th>
+  </tr>
+  </table>-->
+  <table style ="width:100%" id="contactSearchResults"></table>
+</div>
 	
-	<div id="searchResultsDiv" class="row mb-3">		  
+	<!--<div id="searchResultsDiv" class="row mb-3">		  
 		<table id="contactList">
 		  <tr>
 		    <th>Name</th>
@@ -67,19 +81,20 @@
 		    <th>Email</th>
 		  </tr>		
 		</table>
-		<span id="contactSearchResult"></span>
-    </div>
+		<p id="contactSearchResult"></p>
+    </div>-->
 	<body><h1>   </h1></body>
   <body><h1>   </h1></body>
   <!--<p>Click <a href="/user"><u>here</u></a> to return to your userpage</p>
   <body><h1>   </h1></body>-->
-  <p>Currently logged in as <a href="/user"><span id="userName"></span><br /></a></p>
+  
 	
   </main>
 
   <footer class="mastfoot mt-auto">
     <div class="inner">
       <p>Start growing your branches today</p>
+	  <p>Currently logged in as: <b><a href="/user"><span id="userName"></span><br /></a></b></p>
     </div>
   </footer>
 </div>

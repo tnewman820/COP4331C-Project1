@@ -254,16 +254,14 @@ function searchContact()
 				document.getElementById("contactSearchResult").innerHTML ="Contacts retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
 				var i, j, x = "";
-				x = "<tr><th>Name:</th><th>Phone Number:</th><th>Email Address:</th><th>Delete</th></tr>"
+				x = "<tr><th>Name:</th><th>Phone Number:</th><th>Email Address:</th><th>Delete:</th></tr>"
 				for (i in jsonObject.results) 
 				{
 					x += "<tr>";
 					x += "<td>" + jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName + "</td>";
 					x += "<td>" + jsonObject.results[i].Phone + "</td>";
 					x += "<td>" + jsonObject.results[i].Email + "</td>";
-					x += "<td>" + "<img onClick="doDeleteContact("
-					x += jsonObject.results[i].Id; + ")" src='../img/trash.png' width="20" height="20">"
-					x += "</td>";
+					x += "<td>DELETE </td>";
 					x += "</tr>";	
 				}
 				document.getElementById("contactSearchResults").innerHTML = x;
@@ -277,38 +275,7 @@ function searchContact()
 		document.getElementById("contactSearchResult").innerHTML = "Error: " + err.message;
 	}
 }
-function doDeleteContact(contactID)
-{
-	/*document.getElementById("deleteResult").innerHTML = ""; 
-	
-	if(contactID == "")
-	{
-		document.getElementById("createResult").innerHTML = "Contact Deletion Unsuccessful!";
-		return;
 
-	}
-	
-	var jsonPayload = '{"Id" : "' + userId + '", "firstname" : "' + fname + '", "lastname" : "' + lname + '", "email" : "' + email + '", "phone" : "' + phonenum + '"}';
-	var url = urlBase + '/delContact.' + extension;
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, false);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.send(jsonPayload);
-		
-		var jsonObject = JSON.parse( xhr.responseText );
-		document.getElementById("createResult").innerHTML = "" + contactFirstName + " " + contactLastName + " Contact Deletion Successful!";
-		window.location.href = "/search";
-	}
-	catch(err)
-	{
-		document.getElementById("createResult").innerHTML = err.message;
-	}*/
-	window.location.href = "/search";
-	
-}
 /*---------------------------------------------------end contact system--------------------------------------------------------------------*/
 
 /*------------------------------------------------------extra functions--------------------------------------------------------------------*/
@@ -15999,4 +15966,3 @@ function bit_rol(num, cnt)
 
 /*----------------------------------------------------end bootstrap functions------------------------------------------------------------------*/
 	
-

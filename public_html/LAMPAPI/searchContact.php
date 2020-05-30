@@ -27,7 +27,7 @@
 				}
 				$searchCount++;
 				//$searchResults .= '"' . $row["FirstName"] . ' '. $row["LastName"]. " Phone Number: " . $row["Phone"] . " Email: " . $row["Email"] . '"';
-				$searchResults .= '{"Id" : " '.$row["Id"].' ", "firstName" : "'.$row["FirstName"].'", "lastName" : "'.$row["LastName"].'", "Phone" : "'.$row["Phone"].'", "Email" : "'.$row["Email"].'"}';
+				$searchResults .= '{"Id" : " '.$row["num"].' ", "firstName" : "'.$row["FirstName"].'", "lastName" : "'.$row["LastName"].'", "Phone" : "'.$row["Phone"].'", "Email" : "'.$row["Email"].'"}';
 			}
 			returnWithInfo( $searchResults );
 		}

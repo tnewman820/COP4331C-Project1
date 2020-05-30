@@ -261,7 +261,9 @@ function searchContact()
 					x += "<td>" + jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName + "</td>";
 					x += "<td>" + jsonObject.results[i].Phone + "</td>";
 					x += "<td>" + jsonObject.results[i].Email + "</td>";
-					x += "<td>DELETE </td>";
+					x += "<td>";
+					x += '<img onClick="doContactDelete('+ jsonObject.results[i].firstName + ',' + jsonObject.results[i].lastName + ',' + jsonObject.results[i].Phone + ',' + jsonObject.results[i].Email +')" src=".../img/trash.png">'
+					x += "</td>";
 					x += "</tr>";	
 				}
 				document.getElementById("contactSearchResults").innerHTML = x;
@@ -274,6 +276,16 @@ function searchContact()
 	{
 		document.getElementById("contactSearchResult").innerHTML = "Error: " + err.message;
 	}
+}
+function doContactDelete(firstName, lastName, Phone, Email)
+{
+	var jsonPayload = '{"UserId" : "' + userId + '", "firstname" : "' + firstName + '", "lastname" : "' + lastName + '", "email" : "' + Email + '", "phone" : "' + Phone + '"}';
+	var url = urlBase + '/delContact.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	window.location.href = "/search";
 }
 
 /*---------------------------------------------------end contact system--------------------------------------------------------------------*/

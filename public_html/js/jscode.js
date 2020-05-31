@@ -262,7 +262,7 @@ function searchContact()
 					x += "<td>" + jsonObject.results[i].Phone + "</td>";
 					x += "<td>" + jsonObject.results[i].Email + "</td>";
 					x += "<td>";
-					x += '<img onClick="doContactDelete('+ jsonObject.results[i].firstName + ',' + jsonObject.results[i].lastName + ',' + jsonObject.results[i].Phone + ',' + jsonObject.results[i].Email +')" src=".../img/trash.png">'
+					x += '<input type="image" id="deleteButton" onClick="doContactDelete(' + jsonObject.results[i].Phone +')" src="../img/trash.png" width="20" height ="20">'
 					x += "</td>";
 					x += "</tr>";	
 				}
@@ -277,15 +277,56 @@ function searchContact()
 		document.getElementById("contactSearchResult").innerHTML = "Error: " + err.message;
 	}
 }
-function doContactDelete(firstName, lastName, Phone, Email)
+
+/*function doContactDelete(Phone)
 {
-	var jsonPayload = '{"UserId" : "' + userId + '", "firstname" : "' + firstName + '", "lastname" : "' + lastName + '", "email" : "' + Email + '", "phone" : "' + Phone + '"}';
-	var url = urlBase + '/delContact.' + extension;
+	var t = confirm("Are you sure you wish to delete this contact?!?!");
 	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, false);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	window.location.href = "/search";
+	if(t == true)
+	{
+		var jsonPayload = '{"userId" : "' + userId + '", "phone" : "' + Phone + '"}';
+		var url = urlBase + '/delContact.' + extension;
+	
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, false);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.send(jsonPayload);
+			document.getElementById("contactDeleteResult").innerHTML ="Contact deleted:<br><br>";
+			location.reload();
+		}
+	
+		catch
+		{
+			document.getElementById("contactDeleteResult").innerHTML = err.message;
+		}
+	}
+	else
+	{
+		location.reload();
+	}
+	
+}*/
+function doContactDelete(Phone)
+{
+		var jsonPayload = '{"userId" : "' + userId + '", "phone" : "' + Phone + '"}';
+		var url = urlBase + '/delContact.' + extension;
+	
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, false);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.send(jsonPayload);
+			document.getElementById("contactDeleteResult").innerHTML ="Contact deleted:<br><br>";
+			location.reload();
+		}
+	
+		catch
+		{
+			document.getElementById("contactDeleteResult").innerHTML = err.message;
+		}
 }
 
 /*---------------------------------------------------end contact system--------------------------------------------------------------------*/

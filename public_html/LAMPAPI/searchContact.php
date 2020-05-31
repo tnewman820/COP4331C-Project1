@@ -19,7 +19,7 @@
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc())
+			while($row = $result->fetch_array())
 			{
 				if( $searchCount > 0 )
 				{
@@ -27,7 +27,7 @@
 				}
 				$searchCount++;
 				//$searchResults .= '"' . $row["FirstName"] . ' '. $row["LastName"]. " Phone Number: " . $row["Phone"] . " Email: " . $row["Email"] . '"';
-				$searchResults .= '{"Id" : " '.$row["Id"].' ", "firstName" : "'.$row["FirstName"].'", "lastName" : "'.$row["LastName"].'", "Phone" : "'.$row["Phone"].'", "Email" : "'.$row["Email"].'"}';
+				$searchResults .= '{"Id" : " '.$row["id"].' ", "firstName" : "'.$row["FirstName"].'", "lastName" : "'.$row["LastName"].'", "Phone" : "'.$row["Phone"].'", "Email" : "'.$row["Email"].'"}';
 			}
 			returnWithInfo( $searchResults );
 		}

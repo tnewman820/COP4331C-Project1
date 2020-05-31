@@ -278,7 +278,7 @@ function searchContact()
 	}
 }
 
-/*function doContactDelete(Phone)
+function doContactDelete(Phone)
 {
 	var t = confirm("Are you sure you wish to delete this contact?!?!");
 	
@@ -307,7 +307,7 @@ function searchContact()
 		location.reload();
 	}
 	
-}*/
+}/*
 function doContactDelete(Phone)
 {
 		var jsonPayload = '{"userId" : "' + userId + '", "phone" : "' + Phone + '"}';
@@ -327,11 +327,28 @@ function doContactDelete(Phone)
 		{
 			document.getElementById("contactDeleteResult").innerHTML = err.message;
 		}
-}
+}*/
 
 /*---------------------------------------------------end contact system--------------------------------------------------------------------*/
 
 /*------------------------------------------------------extra functions--------------------------------------------------------------------*/
+
+function addDashes(f) {
+    var r = /(\D+)/g,
+        npa = '',
+        nxx = '',
+        last4 = '';
+    f.value = f.value.replace(r, '');
+    npa = f.value.substr(0, 3);
+    nxx = f.value.substr(3, 3);
+    last4 = f.value.substr(6, 4);
+    f.value = npa + '-' + nxx + '-' + last4;
+}
+
+
+
+
+
 
 /*!
  * jQuery JavaScript Library v3.5.1

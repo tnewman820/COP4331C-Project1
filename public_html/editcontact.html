@@ -3,18 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
 	<script type="text/javascript" src="js/jscode.js"></script>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function() 
 	{
 		readCookie();
-		showdiv("editContactDiv",false);
-		searchContact();
 	}, false);
-	<!--document.getElementById("searchResultsDiv").style.display = "none";-->
 	</script>
-	
     <title>Branch · Out</title>
 
     <!-- Bootstrap core CSS -->
@@ -45,28 +40,16 @@
       <a class="brand" href="/" style='width: 112px;'>
 		  <img src='../img/logo112.png'></a>
       <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" type="button" id="logoutButton" onClick="doLogout();">Logout</a>
+        <!--<a class="nav-link active" href="/login">Login</a>-->
       </nav>
     </div>
   </header>
 
   <main role="main" class="inner cover">
+    <body class="text-center">
+    <form class="form-signin">
+  <!--<img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
   <img src='../img/branches.png' width="200" height="200">
-    <h1 id="searchHeader" class="h3 mb-3 font-weight-normal">Search for a contact:</h1>
-
-<div id ="searchBar" class="input-group">
-   <input type="text" id="searchText" class="form-control" placeholder="Search Text" required autofocus>
-   <span class="input-group-btn">
-        <button type="button" id="" onClick="searchContact()" class="btn btn-secondary" ><b>Search</b></button>
-   </span>
-</div>
-<div id="searchResultDiv">
-<span id="contactSearchResult"></span>
-  <table style ="width:100%" id="contactSearchResults"></table>
-  <span id="contactDeleteResult"></span>
-</div>
-<div id="editContactDiv">
-<form class="form-signin">
   <h1 id="testspan"class="h3 mb-3 font-weight-normal">Edit Contact:</h1>
     <label for="editFirstName" class="sr-only">First Name</label>
   <input type="text" id="editFirstName" class="form-control" value = "" required autofocus>
@@ -81,17 +64,17 @@
   <!--<input type="tel" id="cphoneNumber" class="form-control" placeholder="123-456-7890">-->
   <input id="editPhoneNumber" class="form-control" maxlength="12" name="atn" size="25" onKeyup='addDashes(this)' value = "" />
   <body><h1>   </h1></body>
-  <button type="button" onClick="doSendEdit()" class="btn btn-lg btn-secondary" >Edit</button>
+  <button type="button" id="sendEdit" class="btn btn-lg btn-secondary" >Edit</button>
   <body><h1>   </h1></body>
   <span id="contactEditResult"></span>
   
   <body><h1>   </h1></body>
   <body><h1>   </h1></body>
+  <!--<p>Click <a href="/user"><u>here</u></a> to return to your userpage</p>
+  <body><h1>   </h1></body>-->
+  <!--<p>Currently logged in as <a href="/user"><span id="userName"></span><br /></a></p>-->
 </form>
-</div>
-
-	<body><h1>   </h1></body>
-  <body><h1>   </h1></body>	
+</body>
   </main>
 
   <footer class="mastfoot mt-auto">

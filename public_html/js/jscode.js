@@ -5,6 +5,8 @@ var userId = 0;
 var firstName = "";
 var lastName = "";
 
+var globalJSON;
+var globalJSONindex;
 /*------------------------------------------------------login system-----------------------------------------------------------------------*/
 function doLogin()
 {
@@ -248,23 +250,31 @@ function searchContact()
 	{
 		xhr.onreadystatechange = function()
 		{
+			
 			if (this.readyState == 4 && this.status == 200)
 			{
 				//document.getElementById("searchResultsDiv").style.display = "block";
 				document.getElementById("contactSearchResult").innerHTML ="Contacts retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
+				globalJSON = jsonObject;
 				var i, j, x = "";
-				x = "<tr><th>Name:</th><th>Phone Number:</th><th>Email Address:</th><th>Delete:</th></tr>"
-				for (i in jsonObject.results) 
+				x = "<tr><th>Name:</th><th>Phone Number:</th><th>Email Address:</th><th> </th><th> </th></tr>"
+				for (i in jsonObject.results)
 				{
 					x += "<tr>";
 					x += "<td>" + jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName + "</td>";
 					x += "<td>" + jsonObject.results[i].Phone + "</td>";
 					x += "<td>" + jsonObject.results[i].Email + "</td>";
 					x += "<td>";
-					x += '<input type="image" id="deleteButton" onClick="doContactDelete(' + jsonObject.results[i].Phone +')" src="../img/trash.png" width="20" height ="20">'
+					phoneNumber = jsonObject.results[i].Phone;
+					phoneNoDashes = phoneNumber.slice(0,3) + phoneNumber.slice(4,7) + phoneNumber.slice(8,12);
+					x += '<input type="image" id="deleteButton" onClick="doContactDelete(' + phoneNoDashes +')" src="../img/trash.png" width="20" height ="20">'
+					x += "</td>";
+					x += "<td>";
+					x += '<input type="image" id="editButton" onClick="doContactEdit(' + i +')" src="../img/edit.png" width="20" height ="20">'
 					x += "</td>";
 					x += "</tr>";	
+				
 				}
 				document.getElementById("contactSearchResults").innerHTML = x;
 			}
@@ -278,13 +288,17 @@ function searchContact()
 	}
 }
 
-function doContactDelete(Phone)
+function doContactDelete(phone)
 {
+	var phoneNum = phone.toString();
+	var phoneDashes1 = phoneNum.slice(0,3);
+	var phoneDashes2 = phoneNum.slice(3,6);
+	var phoneDashes3 = phoneNum.slice(6,12);
 	var t = confirm("Are you sure you wish to delete this contact?!?!");
 	
 	if(t == true)
 	{
-		var jsonPayload = '{"userId" : "' + userId + '", "phone" : "' + Phone + '"}';
+		var jsonPayload = '{"userId" : "' + userId + '", "phone" : "' + phoneDashes1 + "-" + phoneDashes2 +"-" + phoneDashes3 + '"}';
 		var url = urlBase + '/delContact.' + extension;
 	
 		var xhr = new XMLHttpRequest();
@@ -307,11 +321,32 @@ function doContactDelete(Phone)
 		location.reload();
 	}
 	
-}/*
-function doContactDelete(Phone)
+}
+/*function doContactEdit(index)
 {
-		var jsonPayload = '{"userId" : "' + userId + '", "phone" : "' + Phone + '"}';
-		var url = urlBase + '/delContact.' + extension;
+	window.location.href = "/editcontact"
+	
+	var phoneNum = JSONphone.toString();
+	var phoneDashes1 = phoneNum.slice(0,3);
+	var phoneDashes2 = phoneNum.slice(3,6);
+	var phoneDashes3 = phoneNum.slice(6,12);
+	var phoneDashes = phoneDashes1 + "-" + phoneDashes2 + "-" + phoneDashes3;
+	
+	document.getElementById("editFirstName").value = JSONfname;
+	document.getElementById("editLastName").value = JSONlname;
+	document.getElementById("editEmail").value = JSONemail;
+	document.getElementById("editPhoneNumber").value = JSONphone;
+	
+	document.getElementById("sendEdit").onClick = function()
+	{
+		
+		var newfname = document.getElementById("editFirstName").value;
+		var newlname = document.getElementById("editLastName").value;
+		var newemail = document.getElementById("editEmail").value;
+		var newphone = document.getElementById("editPhoneNumber").value;
+		
+		var jsonPayload = '{"userId" : "' + userId + '", "oldPhone" : "' + phoneDashes + '"oldFirstName" : "' + JSONfname + '", ' + '"OldLastName" : "' + JSONlname + '", ' + '"oldEmail" : "' + JSONemail + '", ' + '"firstName" : "' + newfname + '",' + '"lastName" : "' + newlname + '",' + '"phone" : "' + newphone + '",' + '"email" : "' + newemail + '"' + '}';
+		var url = urlBase + '/editContact.' + extension;
 	
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, false);
@@ -319,32 +354,113 @@ function doContactDelete(Phone)
 		try
 		{
 			xhr.send(jsonPayload);
-			document.getElementById("contactDeleteResult").innerHTML ="Contact deleted:<br><br>";
-			location.reload();
+			document.getElementById("contactEditResult").innerHTML ="Contact edited:<br><br>";
+			window.location.href = "/search";
 		}
-	
+
 		catch
 		{
-			document.getElementById("contactDeleteResult").innerHTML = err.message;
+			document.getElementById("contactEditResult").innerHTML = err.message;
 		}
+	}
+	
+	
+	
+}
+
+function redirectToEdit(index)
+{
+	window.location.href = "/editcontact"
+	doContactEdit(index);
 }*/
+
+function doContactEdit(index)
+{
+	var jsonObject = globalJSON;
+	globalJSONindex = index;
+	
+	showdiv("editContactDiv",true);
+	showdiv("searchResultDiv", false);
+	showdiv("searchBar", false);
+	showdiv("searchHeader", false);
+	
+	var phoneNum = jsonObject.results[index].Phone.toString();
+	var phoneDashes1 = phoneNum.slice(0,3);
+	var phoneDashes2 = phoneNum.slice(3,6);
+	var phoneDashes3 = phoneNum.slice(6,12);
+	var phoneDashes = phoneDashes1 + "-" + phoneDashes2 + "-" + phoneDashes3;
+	
+	document.getElementById("editFirstName").value = jsonObject.results[index].firstName;
+	document.getElementById("editLastName").value = jsonObject.results[index].lastName;
+	document.getElementById("editEmail").value = jsonObject.results[index].Email;
+	document.getElementById("editPhoneNumber").value = jsonObject.results[index].Phone;
+		
+}
+function doSendEdit()
+{
+	var jsonObject = globalJSON;
+	var index = globalJSONindex;
+	var phoneNum = jsonObject.results[index].Phone.toString();
+	var phoneDashes1 = phoneNum.slice(0,3);
+	var phoneDashes2 = phoneNum.slice(3,6);
+	var phoneDashes3 = phoneNum.slice(6,12);
+	var phoneDashes = phoneDashes1 + "-" + phoneDashes2 + "-" + phoneDashes3;
+	
+	var newfname = document.getElementById("editFirstName").value;
+	var newlname = document.getElementById("editLastName").value;
+	var newemail = document.getElementById("editEmail").value;
+	var newphone = document.getElementById("editPhoneNumber").value;
+		
+	var jsonPayload = '{"userId" : "' + userId + '", "oldPhone" : "' + jsonObject.results[index].Phone + '", "oldFirstName" : "' + jsonObject.results[index].firstName + '", ' + '"oldLastName" : "' + jsonObject.results[index].lastName + '", ' + '"oldEmail" : "' + jsonObject.results[index].Email + '", ' + '"firstName" : "' + newfname + '",' + '"lastName" : "' + newlname + '",' + '"phone" : "' + newphone + '",' + '"email" : "' + newemail + '"' + '}';
+	var url = urlBase + '/editContact.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.send(jsonPayload);
+		document.getElementById("contactEditResult").innerHTML ="Contact edited:<br><br>";
+		window.location.href = "/search";
+	}
+		catch
+	{
+		document.getElementById("contactEditResult").innerHTML = err.message;
+	}
+}
+
 
 /*---------------------------------------------------end contact system--------------------------------------------------------------------*/
 
 /*------------------------------------------------------extra functions--------------------------------------------------------------------*/
 
-function addDashes(f) {
-    var r = /(\D+)/g,
-        npa = '',
-        nxx = '',
-        last4 = '';
-    f.value = f.value.replace(r, '');
-    npa = f.value.substr(0, 3);
-    nxx = f.value.substr(3, 3);
-    last4 = f.value.substr(6, 4);
-    f.value = npa + '-' + nxx + '-' + last4;
+function addDashes(f)
+{
+    f.value = f.value.replace(/\D/g, '');
+	f.value = f.value.slice(0,3)+"-"+f.value.slice(3,6)+"-"+f.value.slice(6,15);
 }
+function addStaticDashes(f)
+{
+	f.value = f.value.slice(0,3)+"-"+f.value.slice(3,6)+"-"+f.value.slice(6,15);
+}
+function removeDashes(phoneNumber)
+{
+	phoneNumber.slice(0,3) + phoneNumber.slice(4,7) + phoneNumber.slice(8,12);
+	return phoneNumber;
+}
+function showdiv( elementId, showState )
+{
+	var vis = "visible";
+	var dis = "block";
+	if( !showState )
+	{
+		vis = "hidden";
+		dis = "none";
+	}
 
+	document.getElementById( elementId ).style.visibility = vis;
+	document.getElementById( elementId ).style.display = dis;
+}
 
 
 

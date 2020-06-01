@@ -322,57 +322,6 @@ function doContactDelete(phone)
 	}
 	
 }
-/*function doContactEdit(index)
-{
-	window.location.href = "/editcontact"
-	
-	var phoneNum = JSONphone.toString();
-	var phoneDashes1 = phoneNum.slice(0,3);
-	var phoneDashes2 = phoneNum.slice(3,6);
-	var phoneDashes3 = phoneNum.slice(6,12);
-	var phoneDashes = phoneDashes1 + "-" + phoneDashes2 + "-" + phoneDashes3;
-	
-	document.getElementById("editFirstName").value = JSONfname;
-	document.getElementById("editLastName").value = JSONlname;
-	document.getElementById("editEmail").value = JSONemail;
-	document.getElementById("editPhoneNumber").value = JSONphone;
-	
-	document.getElementById("sendEdit").onClick = function()
-	{
-		
-		var newfname = document.getElementById("editFirstName").value;
-		var newlname = document.getElementById("editLastName").value;
-		var newemail = document.getElementById("editEmail").value;
-		var newphone = document.getElementById("editPhoneNumber").value;
-		
-		var jsonPayload = '{"userId" : "' + userId + '", "oldPhone" : "' + phoneDashes + '"oldFirstName" : "' + JSONfname + '", ' + '"OldLastName" : "' + JSONlname + '", ' + '"oldEmail" : "' + JSONemail + '", ' + '"firstName" : "' + newfname + '",' + '"lastName" : "' + newlname + '",' + '"phone" : "' + newphone + '",' + '"email" : "' + newemail + '"' + '}';
-		var url = urlBase + '/editContact.' + extension;
-	
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", url, false);
-		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-		try
-		{
-			xhr.send(jsonPayload);
-			document.getElementById("contactEditResult").innerHTML ="Contact edited:<br><br>";
-			window.location.href = "/search";
-		}
-
-		catch
-		{
-			document.getElementById("contactEditResult").innerHTML = err.message;
-		}
-	}
-	
-	
-	
-}
-
-function redirectToEdit(index)
-{
-	window.location.href = "/editcontact"
-	doContactEdit(index);
-}*/
 
 function doContactEdit(index)
 {
@@ -384,12 +333,6 @@ function doContactEdit(index)
 	showdiv("searchBar", false);
 	showdiv("searchHeader", false);
 	
-	var phoneNum = jsonObject.results[index].Phone.toString();
-	var phoneDashes1 = phoneNum.slice(0,3);
-	var phoneDashes2 = phoneNum.slice(3,6);
-	var phoneDashes3 = phoneNum.slice(6,12);
-	var phoneDashes = phoneDashes1 + "-" + phoneDashes2 + "-" + phoneDashes3;
-	
 	document.getElementById("editFirstName").value = jsonObject.results[index].firstName;
 	document.getElementById("editLastName").value = jsonObject.results[index].lastName;
 	document.getElementById("editEmail").value = jsonObject.results[index].Email;
@@ -400,11 +343,6 @@ function doSendEdit()
 {
 	var jsonObject = globalJSON;
 	var index = globalJSONindex;
-	var phoneNum = jsonObject.results[index].Phone.toString();
-	var phoneDashes1 = phoneNum.slice(0,3);
-	var phoneDashes2 = phoneNum.slice(3,6);
-	var phoneDashes3 = phoneNum.slice(6,12);
-	var phoneDashes = phoneDashes1 + "-" + phoneDashes2 + "-" + phoneDashes3;
 	
 	var newfname = document.getElementById("editFirstName").value;
 	var newlname = document.getElementById("editLastName").value;

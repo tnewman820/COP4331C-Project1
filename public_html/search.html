@@ -81,7 +81,10 @@
   <!--<input type="tel" id="cphoneNumber" class="form-control" placeholder="123-456-7890">-->
   <input id="editPhoneNumber" class="form-control" maxlength="12" name="atn" size="25" onKeyup='addDashes(this)' value = "" />
   <body><h1>   </h1></body>
-  <button type="button" onClick="doSendEdit()" class="btn btn-lg btn-secondary" >Edit</button>
+  <div style="text-align: center">
+  <button type="button" onClick="location.reload()" class="btn btn-lg btn-secondary" >Cancel</button>
+  <button id="btn-right-margin" type="button" onClick="doSendEdit()" class="btn btn-lg btn-secondary" >Edit</button>
+  </div>
   <body><h1>   </h1></body>
   <span id="contactEditResult"></span>
   

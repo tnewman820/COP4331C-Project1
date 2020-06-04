@@ -13,7 +13,7 @@
 	} 
 	else
 	{
-		$sql = "DELETE FROM `Contacts` WHERE `firstname` = '" . $firstname . "' AND `lastname` = '" . $lastname . "' AND `Phone` = '" . $phone . "' AND `UserId` = '" . $UserId .  "' AND `email` = '" . $email . "'";
+		$sql = "DELETE FROM `Contacts` WHERE `firstName` = '".$firstname."' AND `lastName` = '".$lastname."' AND `Phone` = '".$phone."' AND `UserId` = '".$UserId. "' AND `email` = '".$email."'";
 		if($conn->query($sql) != true)
 		{
 			returnWithError( $conn->error );

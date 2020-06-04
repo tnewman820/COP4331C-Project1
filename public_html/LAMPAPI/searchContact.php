@@ -15,7 +15,7 @@
 	}
 	else
 	{
-		$sql = "SELECT `FirstName`, `LastName`, `Email`, `Phone`, `DateCreated` FROM `Contacts` WHERE (`FirstName` LIKE '%" . $searchText . "%' OR `LastName` LIKE '%" . $searchText . "%' OR `Email` LIKE '%" . $searchText . "%' OR `Phone` LIKE '%" . $searchText . "%') AND `UserId` = '" . $userId . "'";
+		$sql = "SELECT `FirstName`, `LastName`, `Email`, `Phone`, `DateCreated` FROM `Contacts` WHERE (`FirstName` LIKE '%" . $searchText . "%' OR `LastName` LIKE '%" . $searchText . "%' OR `Email` LIKE '%" . $searchText . "%' OR `Phone` LIKE '%" . $searchText . "%') AND `UserId` = '" . $userId . "' ORDER BY `Contacts`.`DateCreated` DESC";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{

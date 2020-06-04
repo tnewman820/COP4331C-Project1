@@ -4,6 +4,7 @@ var extension = 'php';
 var userId = 0;
 var firstName = "";
 var lastName = "";
+var validEmail = 0;
 
 var globalJSON;
 var globalJSONindex;
@@ -69,6 +70,16 @@ function doRegister()
 	var phonenum = document.getElementById("phoneNumber").value;
 	var hash = hex_md5( password );
 	
+	var emailString = email.toString();
+	
+	/*if(!userCheck)
+	{
+		document.getElementById("loginResult").innerHTML = "Username already in use!";
+	}
+	if(!emailCheck)
+	{
+		document.getElementById("loginResult").innerHTML = "Email already in use!";
+	}*/
 	if( login == "" )
 		{
 			document.getElementById("loginResult").innerHTML = "Username is required for signup!";
@@ -89,7 +100,7 @@ function doRegister()
 			document.getElementById("loginResult").innerHTML = "Last name is required for signup!";
 			return;
 		}
-		/*if( email == "" )
+		if( email == "" )
 		{
 			document.getElementById("loginResult").innerHTML = "Email is required for signup!";
 			return;
@@ -98,7 +109,17 @@ function doRegister()
 		{
 			document.getElementById("loginResult").innerHTML = "Phone number is required for signup!";
 			return;
-		}*/
+		}
+		if(!validateEmail(emailString)){
+		document.getElementById("loginResult").innerHTML ="Signup failed! Email address invalid!";
+		return;
+		}
+		if( phonenum.length < 12 )
+		{
+			document.getElementById("loginResult").innerHTML = "Phone number invalid!";
+			//document.getElementById("loginResult").innerHTML = phonenum.length;
+			return;
+		}
 	
 	document.getElementById("loginResult").innerHTML = "";
 
@@ -115,10 +136,19 @@ function doRegister()
 		
 		var jsonObject = JSON.parse( xhr.responseText );
 		
-		if(jsonObject.error == "Success!")
+		/*if(jsonObject.error == "Success!")
 		{
 			document.getElementById("loginResult").innerHTML = "Redirecting to login...";
 			window.location.href = "login";
+		}*/
+		if(jsonObject.error == "Success!")
+		{
+			document.getElementById("loginResult").innerHTML = "Redirecting to user page...";
+			doLogin();
+		}
+		else if(jsonObject.error != "")
+		{
+			document.getElementById("loginResult").innerHTML = jsonObject.error;
 		}
 		else
 		{
@@ -202,7 +232,17 @@ function doCreateContact()
 		return;
 
 	}
-	
+	var emailString = email.toString();
+	if(!validateEmail(emailString)){
+		document.getElementById("createResult").innerHTML ="Contact creation failed! Email address invalid!";
+		return;
+	}
+	if( phonenum.length < 12 )
+		{
+			document.getElementById("createResult").innerHTML = "Phone number invalid!";
+			//document.getElementById("loginResult").innerHTML = phonenum.length;
+			return;
+		}
 	var jsonPayload = '{"UserId" : "' + userId + '", "firstname" : "' + fname + '", "lastname" : "' + lname + '", "email" : "' + email + '", "phone" : "' + phonenum + '"}';
 	var url = urlBase + '/newContact.' + extension;
 	
@@ -258,7 +298,9 @@ function searchContact()
 				var jsonObject = JSON.parse( xhr.responseText );
 				globalJSON = jsonObject;
 				var i, j, x = "";
+				var maxResults;
 				x = "<tr><th>Name:</th><th>Phone Number:</th><th>Email Address:</th><th> </th><th> </th></tr>"
+				/*UNLIMITED RESULTS
 				for (i in jsonObject.results)
 				{
 					x += "<tr>";
@@ -269,6 +311,31 @@ function searchContact()
 					phoneNumber = jsonObject.results[i].Phone;
 					phoneNoDashes = phoneNumber.slice(0,3) + phoneNumber.slice(4,7) + phoneNumber.slice(8,12);
 					x += '<input type="image" id="deleteButton" onClick="doContactDelete(' + phoneNoDashes +')" src="../img/trash.png" width="20" height ="20">'
+					x += "</td>";
+					x += "<td>";
+					x += '<input type="image" id="editButton" onClick="doContactEdit(' + i +')" src="../img/edit.png" width="20" height ="20">'
+					x += "</td>";
+					x += "</tr>";	
+				
+				}*/
+				//LIMITED TO 10 RESULTS 
+				//console.log(jsonObject.results.length);
+				if(jsonObject.results.length >= 10){
+					maxResults = 10;
+				}
+				else{
+					maxResults = jsonObject.results.length;
+				}
+				for (i=0;i<maxResults;i++)
+				{
+					x += "<tr>";
+					x += "<td>" + jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName + "</td>";
+					x += "<td>" + jsonObject.results[i].Phone + "</td>";
+					x += "<td>" + jsonObject.results[i].Email + "</td>";
+					x += "<td>";
+					phoneNumber = jsonObject.results[i].Phone;
+					phoneNoDashes = phoneNumber.slice(0,3) + phoneNumber.slice(4,7) + phoneNumber.slice(8,12);
+					x += '<input type="image" id="deleteButton" onClick="doContactDelete(' + i +')" src="../img/trash.png" width="20" height ="20">'
 					x += "</td>";
 					x += "<td>";
 					x += '<input type="image" id="editButton" onClick="doContactEdit(' + i +')" src="../img/edit.png" width="20" height ="20">'
@@ -288,17 +355,13 @@ function searchContact()
 	}
 }
 
-function doContactDelete(phone)
+function doContactDelete(index)
 {
-	var phoneNum = phone.toString();
-	var phoneDashes1 = phoneNum.slice(0,3);
-	var phoneDashes2 = phoneNum.slice(3,6);
-	var phoneDashes3 = phoneNum.slice(6,12);
 	var t = confirm("Are you sure you wish to delete this contact?!?!");
 	
 	if(t == true)
 	{
-		var jsonPayload = '{"userId" : "' + userId + '", "phone" : "' + phoneDashes1 + "-" + phoneDashes2 +"-" + phoneDashes3 + '"}';
+		var jsonPayload = '{"userId" : "' + userId + '", "phone" : "' + globalJSON.results[index].Phone + '", "email" : "' + globalJSON.results[index].Email + '", "firstname" : "' + globalJSON.results[index].firstName + '", "lastname" : "' + globalJSON.results[index].lastName + '"}';
 		var url = urlBase + '/delContact.' + extension;
 	
 		var xhr = new XMLHttpRequest();
@@ -348,7 +411,21 @@ function doSendEdit()
 	var newlname = document.getElementById("editLastName").value;
 	var newemail = document.getElementById("editEmail").value;
 	var newphone = document.getElementById("editPhoneNumber").value;
-		
+	
+	var emailString = newemail.toString();
+	
+	if(!validateEmail(emailString)){
+		document.getElementById("contactEditResult").innerHTML ="Edit failed! Email address invalid!";
+		document.getElementById("editEmail").value = jsonObject.results[index].Email;
+		return;
+	}
+	if( newphone.length < 12 )
+		{
+			document.getElementById("contactEditResult").innerHTML = "Phone number invalid!";
+			document.getElementById("editPhoneNumber").value = jsonObject.results[index].Phone;
+			//document.getElementById("loginResult").innerHTML = phonenum.length;
+			return;
+		}
 	var jsonPayload = '{"userId" : "' + userId + '", "oldPhone" : "' + jsonObject.results[index].Phone + '", "oldFirstName" : "' + jsonObject.results[index].firstName + '", ' + '"oldLastName" : "' + jsonObject.results[index].lastName + '", ' + '"oldEmail" : "' + jsonObject.results[index].Email + '", ' + '"firstName" : "' + newfname + '",' + '"lastName" : "' + newlname + '",' + '"phone" : "' + newphone + '",' + '"email" : "' + newemail + '"' + '}';
 	var url = urlBase + '/editContact.' + extension;
 	
@@ -399,7 +476,18 @@ function showdiv( elementId, showState )
 	document.getElementById( elementId ).style.visibility = vis;
 	document.getElementById( elementId ).style.display = dis;
 }
-
+function validateEmail(inputText)
+	{
+	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	if(inputText.match(mailformat))
+	{
+	return true;
+	}
+	else
+	{
+	return false;
+	}
+}
 
 
 

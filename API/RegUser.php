@@ -12,21 +12,19 @@
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
-	} 
+	}	
 	else
-	{
-		$sql = "INSERT INTO `Users`(`FirstName`, `LastName`, `Login`, `Password`, `Email`, `Phone`) VALUES ('" . $firstname . "' , '" . $lastname . "' , '" . $login . "', '" . $password . "', '" . $email . "', '" . $phone . "')";
+	{	
+		$validatesql = "SELECT * FROM Users WHERE Email = '" .  $email ."'";		$validateresult = $conn->query($validatesql);		$validate2sql = "SELECT * FROM Users WHERE Login = '" . $login ."'";		$validate2result = $conn->query($validate2sql);        if ($validateresult->num_rows > 0)        { 			returnWithError( "Email already in use!" );		}        elseif ($validate2result->num_rows > 0)        { 			returnWithError( "Username already in use!" );		}
+		else		{		$sql = "INSERT INTO `Users`(`FirstName`, `LastName`, `Login`, `Password`, `Email`, `Phone`) VALUES ('" . $firstname . "' , '" . $lastname . "' , '" . $login . "', '" . $password . "', '" . $email . "', '" . $phone . "')";
 		if( $result = $conn->query($sql) != TRUE )
 		{
 			returnWithError( $conn->error );
-		}
-		else
-		{
-			returnWithSuccess( $firstname, $lastname);
-		}
+		}		returnWithError("Success!");		}
 		$conn->close();
 	}
-	returnWithError( $err );
+	
+	
 	
 	function getRequestInfo()
 	{
@@ -45,9 +43,4 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithSuccess( $firstName, $lastName )
-	{
-		$retValue = '{"firstName":"' . $firstName . '","lastName":"' . $lastName . '","has been registered"}';
-		sendResultInfoAsJson( $retValue );
-	}
 ?>

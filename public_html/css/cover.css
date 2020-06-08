@@ -1,3 +1,8 @@
+#btn-right-margin{margin-left:5px;}
+#searchButton{margin-left:5px;}
+#searchButton{border: 2px white;}
+#searchButton{font-size: 18px}
+#searchText{border-radius: 4px;}
 /*
  * Globals
  */
@@ -161,6 +166,11 @@ body {
   background-color: rgba(0, 123, 255, .15);
   border: 1px solid rgba(0, 123, 255, .2);
   */
+}
+.divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
 }
 
  
